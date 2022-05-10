@@ -5,9 +5,12 @@ import nmap
 from json.decoder import JSONDecodeError
 from tqdm import *
 from rich.progress import track
-from data import scanner,vuln
-#,crawler
+from alive_progress import alive_bar
 
+from ipaddress import ip_address
+   
+def IPAddress(IP: str) -> str:
+    return "Private" if (ip_address(IP).is_private) else "Public"
 
 nm = nmap.PortScanner()
 
@@ -68,6 +71,7 @@ _crdir(out)
 
 _cls()
 
+
 def get_url(hnms,ip):
 	temp=hnms
 	temp.append(ip)
@@ -110,55 +114,80 @@ def analyze_hosts():
 	print(style.bold(style.yellow("[>] Preparing For Scanning... ")))
 
 	c=1
-	for i in track(temp,description="Getting Host Info... ",total=len(temp)):
-		x=str(i).removeprefix('http://').removeprefix('HTTP://').removeprefix('https://').removeprefix('HTTPS://').split('/')[0]
-		print(style.green('\n['+str(c)+'] Host :',str(x)))
-		hosts.append(x)
+	#with alive_bar(len(temp),force_tty=True,title="Gathering Details",bar="bubbles") as bar:
+	if True:
+		for i in track(temp,description="Gathering Details |",total=len(temp)):
+		#for i in temp:
+			x=str(i).removeprefix('http://').removeprefix('HTTP://').removeprefix('https://').removeprefix('HTTPS://').split('/')[0]
+			#print(style.green('\n['+str(c)+'] Host :',str(x)))
+			hosts.append(x)
 
-		res=_scan(x,'-sn')
+			res=_scan(x,'-sn')
 
-		for j in res:
-			z={};ip='';mac='';hnms=[]
-			try:
-				state=str(res[j]['status']['state'])
-				if state.lower()=='up':
+			for j in res:
+				z={};ip='';mac='';hnms=[]
+				try:
+					state=str(res[j]['status']['state'])
+					if state.lower()=='up':
 
-					try:
-						ip=str(res[j]['addresses']['ipv4'])
-					except:
-						continue
-					try:
-						mac=str(res[j]['addresses']['mac'])
-					except:
-						mac=''
-					try:
-						for y in res[j]['hostnames']:
-							hnms.append(y['name'])
-					except:
-						pass
-			except:
-				pass
+						try:
+							ip=str(res[j]['addresses']['ipv4'])
+						except:
+							continue
+						try:
+							mac=str(res[j]['addresses']['mac'])
+						except:
+							mac=''
+						try:
+							for y in res[j]['hostnames']:
+								hnms.append(y['name'])
+						except:
+							pass
+				except:
+					pass
 
-			hnms=list(set(hnms))
+				hnms=list(set(hnms))
 
-			if ip!=None:
-					print(style.yellow('\t[✔] IP : ')+str(ip),end="")
-					ips.append(ip)
-					print(style.yellow('\t[✔] MAC : ')+str(mac),end="")
-					print(style.yellow('\t[✔] HOSTNAMES : ')+str(hnms))
+				if ip!=None:
+						print(style.green('['+str(c)+'] Host :',str(x)),end="")
+						print(style.yellow('\n[✔] '+str(IPAddress(ip))+' IP : ')+str(ip),end="")
+						ips.append(ip)
+						print(style.yellow('\t[✔] MAC : ')+str(mac),end="")
+						print(style.yellow('\t[✔] HOSTNAMES : ')+str(hnms),end="\n")
+						print()
 
-					z['ip']=str(ip)
-					z['names']=str(hnms)
-					z['mac']=str(mac)
+						z['ip']=str(ip)
+						z['host']=str(x)
+						z['names']=list(hnms)
+						z['mac']=str(mac)
+						url=[]
+						#url=info.get_url(ip,hnms)
+						#url=get_url(hnms,ip)
+						#urls.append(url)
+						#z['url']=str(url)
+						z['url']=url
+						master[x]=z
+				#bar()
+			c+=1
+	
+	
+try:
+	#_crdir(os.getcwd().replace('\\','/')+'/data')
+	import git
+	git.Git(os.getcwd().replace('\\','/')+'/data').clone("https://github.com/17ack312/data")	
+	from data import scanner
+	from data import info
+	from data import vuln
+	from data import banner
+	from data import expl
+	from data import vulnerability
+	_cls()
+	banner.banner()
+	time.sleep(2)
+	_cls()
+except:
+	pass
 
-					url=get_url(hnms,ip)
-					urls.append(url)
-
-					
-					z['url']=str(url)
-
-					master[x]=z
-		c+=1
 
 
 def analyze_network():
@@ -191,48 +220,53 @@ def analyze_network():
 		res=_scan(i,'-sn')
 		
 		d=1
-		for x in track(res,description='Progress... '):
-			z={};ip='';mac='';hnms=[]
-			try:
-				state=str(res[x]['status']['state'])
-				if state.lower()=='up':
-					try:
-						ip=str(res[x]['addresses']['ipv4'])
-					except:
-						continue
-					try:
-						mac=str(res[x]['addresses']['mac'])
-					except:
-						mac=''
-					try:
-						for y in res[x]['hostnames']:
-							hnms.append(y['name'])
-					except:
-						pass
-			except:
-				pass
+		#with alive_bar(len(res),force_tty=True,title="Gathering Details",bar="bubbles") as bar:
+		if True:
+			for x in track(res,description='Gathering Details |'):
+			#for x in res:
+				z={};ip='';mac='';hnms=[]
+				try:
+					state=str(res[x]['status']['state'])
+					if state.lower()=='up':
+						try:
+							ip=str(res[x]['addresses']['ipv4'])
+						except:
+							continue
+						try:
+							mac=str(res[x]['addresses']['mac'])
+						except:
+							mac=''
+						try:
+							for y in res[x]['hostnames']:
+								hnms.append(y['name'])
+						except:
+							pass
+				except:
+					pass
 
-			hnms=list(set(hnms))
+				hnms=list(set(hnms))
 
-			if ip!=None:
-					print(style.yellow('\t['+str(d)+'] IP : ')+str(ip),end="")
-					ips.append(ip)
-					hosts.append(ip)
-					print(style.yellow('\t[✔] MAC : ')+str(mac),end="")
-					print(style.yellow('\t[✔] HOSTNAMES : ')+str(hnms),end="\n")
+				if ip!=None:
+						print(style.yellow('\t['+str(d)+'] '+str(IPAddress(ip))+' IP : ')+str(ip),end="")
+						ips.append(ip)
+						hosts.append(ip)
+						print(style.yellow('\t[✔] MAC : ')+str(mac),end="")
+						print(style.yellow('\t[✔] HOSTNAMES : ')+str(hnms),end="\n")
+						print()
 
-					z['ip']=str(ip)
-					z['names']=str(hnms)
-					z['mac']=str(mac)
-
-					url=get_url(hnms,ip)
-					urls.append(url)
-
-					z['url']=str(url)
-
-					master[ip]=z
-
-					d+=1
+						z['ip']=str(ip)
+						z['host']=str(ip)
+						z['names']=list(hnms)
+						z['mac']=str(mac)
+						#url=info.get_url(ip,hnms)
+						url=[]
+						#url=get_url(hnms,ip)
+						#urls.append(url)
+						#z['url']=str(url)
+						z['url']=url
+						master[ip]=z
+						d+=1
+				#bar()
 		c+=1
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -249,8 +283,9 @@ def get_input():
 	if flag==0:
 		sys.exit("Thanks For Using")
 
-
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 if 'win' in str(sys.platform).lower():
     python = 'py'
@@ -272,9 +307,127 @@ elif 'linux' in str(sys.platform).lower():
         get_input()
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+print()
+count=0
 for m in master.keys():
+	count+=1
 	ip=str(master[m]['ip'])
-	print(vuln.scanner(ip))
-	#print(scanner.ext(ip))
+	hnms=list(master[m]['names'])
 
+	serv_p={};url={};vuls={}
+
+	now=datetime.datetime.now()
+	master[m]['start']=str(now)
+
+	print("\t\t",style.on_magenta("["+str(datetime.datetime.now()).split(".")[0]+"]"),style.on_magenta(" SCAN STARTED ON HOST ["+str(count)+"] "+style.black(style.bold(style.underline('"'+str(m)+'"'))+" "),"\n"))
+	#print("==============================================================================================="))
+	print("   🧡",style.black(style.on_yellow("","HOST:",m,"")),end="\n")
+	print("   💙",style.blue(style.on_white("","IP :",ip,"")),end="\n")
+	print("   💚",style.black(style.on_green("","HOSTNAMES:",str(master[m]['names']).removeprefix('[').removesuffix(']'))," "))
+
+	####GETTING OPEN PORTS
+	#print("\n\t____________________________________________________________")
+	print("\n\t","▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃")
+	#print("\t┗━━━━[",style.bold(style.underline(style.yellow("Scanning"),style.cyan("For"),style.green("Ports & Services")),"]"))
+	print("\t ┗━━━━[",style.on_white(style.red(" "+str(datetime.datetime.now()).split(".")[0]+" ")),"]",style.on_black(style.bold(style.underline(style.yellow("SCANNING"),style.white("FOR"),style.green("PORTS & SERVICES")))))
+	print("\n\t",style.on_blue("   TYPE   "),"\t",style.on_blue(" INFORMATION "))
+	print()
+	##Service Scan
+	serv_p=json.loads(scanner.serv(ip))
+	#extended Scan
+	#serv_p=json.loads(scanner.ext(ip))
+
+	master[m]['ports']=serv_p[ip]['port']
+	try:
+		master[m]['os']=serv_p[ip]['os']
+	except:
+		master[m]['os']=""
+	try:
+		master[m]['uptime']=serv_p[ip]['uptime']
+	except:
+		master[m]['uptime']=""
+
+	##CRAWLING
+	#print("\n\t__________________________________________________________")
+	print("\n\t","▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃")
+	#print("\t┗━━━━[",style.bold(style.underline(style.yellow("Crawling"),style.cyan("For"),style.green("Available URLs")),"]"))
+	print("\t ┗━━━━[",style.on_white(style.red(" "+str(datetime.datetime.now()).split(".")[0]+" ")),"]",style.on_black(style.bold(style.underline(style.yellow("CRAWLING"),style.white("FOR"),style.green("AVAILABLE URLS")))))
+	print("\n\t",style.on_blue(" RESPONSE "),"\t",style.on_blue("  ACCESSIBLE  URLS "))
+	print()
+	##crawl
+	url=json.loads(info.get_url(ip,hnms))
+	master[m]['url']=url
+
+
+	##VULNERABILITIES
+	#print("\n\t__________________________________________________________")
+	print("\n\t","▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃")
+	#print("\t┗━━━━[",style.bold(style.underline(style.yellow("Looking"),style.cyan("For"),style.green("Vulnerabilities")),"]"))
+	print("\t ┗━━━━[",style.on_white(style.red(" "+str(datetime.datetime.now()).split(".")[0]+" ")),"]",style.on_black(style.bold(style.underline(style.yellow("LOOKING"),style.white("FOR"),style.green("VULNERABILITIES")))))
+	print("\n\t",style.on_blue(" FOUND ON "),"\t",style.on_blue("  VULNERABILITIES(POSSIBLE)  "))
+	print()
+
+
+	#common vulns
+	vuls['common']=json.loads(vuln.scanner(ip))
+	
+	#specific vulns
+	vuls['xss']=expl.xss(url)
+	vuls['sql']=expl.sql(url)
+	vuls['rce']=expl.rce(url)
+	vuls['ssti']=expl.ssti(url)
+	
+	master[m]['vuln']=vuls
+
+	now=datetime.datetime.now()
+	master[m]['end']=str(now)
+
+	print(style.yellow(style.on_magenta("\n\t\t "+style.on_white(style.white("["+str(datetime.datetime.now()).split(".")[0]+"]"))+" SCAN FINISHED  "))) #"STARTED ON HOST ["+str(count)+"] "+style.black(style.bold(style.underline(str(m)))+"   ")),"\n"))
+	#print("===============================================================================================")
+
+
+
+	#print(style.on_yellow("                                       "))
+
+
+
+
+
+	"""
+	print("SERVICES & INFORMATION : ")
+	print("\t TYPE\t\t     INFORMATION")
+	print("\t------\t\t  -----------------")
+	serv_p=json.loads(scanner.serv(ip))
+
+	master[m]['ports']=serv_p[ip]['port']
+
+	master[m]['now']=str(datetime.datetime.now())
+	#print(serv_p)
+	
+	#url=json.loads(info.get_url(ip,hnms))
+	#master[m]['url']=url
+	#print(url)
+
+	#print("========================================")
+	print("\n Looking for Vulnerabilities :")
+	vuls['common']=json.loads(vuln.scanner(ip))
+
+	master[m]['vuln']=vuls
+	#print(vuls)
+	#print("========================================")
+	"""
+
+
+
+	
+
+	#print(vulnerability.scanner(ip))
+	#print(master[m])
+	
+
+#print(master)
+"""
+f=open('res.json','w')
+f.write(json.dumps(master))
+f.close()
+"""
