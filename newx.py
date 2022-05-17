@@ -1,4 +1,4 @@
-import os, sys, subprocess, ctypes, tempfile, shutil,json,datetime,time,re
+import os, sys, subprocess, ctypes, tempfile, shutil,json,datetime,time,re,signal
 import style
 import requests, urllib3
 import nmap
@@ -6,7 +6,6 @@ from json.decoder import JSONDecodeError
 from tqdm import *
 from rich.progress import track
 from alive_progress import alive_bar
-from __pycache__ import m
 from ipaddress import ip_address
 import git
 def IPAddress(IP: str) -> str:
@@ -19,6 +18,15 @@ python=''
 path = tempfile.gettempdir().replace('\\', '/') + '/newxp/'
 mod = path + 'module/'
 out = mod.replace('module', 'out')
+
+def _goodbye():
+	_rmdir('data')
+
+def handler(signum, frame):
+	_rmdir('data')
+	sys.exit("Thanks For Using")
+ 
+signal.signal(signal.SIGINT, handler)
 
 def _cls():
 	try:
@@ -67,9 +75,8 @@ def _moddump(f):
 _crdir(path)
 _crdir(mod)
 _crdir(out)
-
+from __pycache__ import m
 _cls()
-
 
 def get_url(hnms,ip):
 	temp=hnms
@@ -169,8 +176,10 @@ def analyze_hosts():
 						master[x]=z
 				#bar()
 			c+=1
-
-git.Git(os.getcwd().replace('\\','/')+'/data').clone(temp_url)	
+try:
+	git.Git(os.getcwd().replace('\\','/')+'/data').clone(temp_url)	
+except:
+	pass
 
 def analyze_network():
 	_cls()
@@ -263,6 +272,7 @@ def get_input():
 	if flag==2:
 		analyze_network()
 	if flag==0:
+		_rmdir('data')
 		sys.exit("Thanks For Using")
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -274,6 +284,7 @@ try:
 	from data import banner
 	from data import expl
 	from data import vulnerability
+	from data import output
 	_cls()
 	banner.banner()
 	time.sleep(3)
@@ -296,7 +307,8 @@ if 'win' in str(sys.platform).lower():
 elif 'linux' in str(sys.platform).lower():
     python = 'python3'
     if not os.geteuid() == 0:
-        sys.exit('[] This script must be run as root!')
+    	_rmdir('data')
+    	sys.exit('[] This script must be run as root!')
     else:
         get_input()
 
@@ -377,45 +389,6 @@ for m in master.keys():
 
 	print(style.yellow(style.on_magenta("\n\t\t "+style.on_white(style.white("["+str(datetime.datetime.now()).split(".")[0]+"]"))+" SCAN FINISHED  "))) #"STARTED ON HOST ["+str(count)+"] "+style.black(style.bold(style.underline(str(m)))+"   ")),"\n"))
 	#print("===============================================================================================")
-
-
-
-	#print(style.on_yellow("                                       "))
-
-
-
-
-
-	"""
-	print("SERVICES & INFORMATION : ")
-	print("\t TYPE\t\t     INFORMATION")
-	print("\t------\t\t  -----------------")
-	serv_p=json.loads(scanner.serv(ip))
-
-	master[m]['ports']=serv_p[ip]['port']
-
-	master[m]['now']=str(datetime.datetime.now())
-	#print(serv_p)
-	
-	#url=json.loads(info.get_url(ip,hnms))
-	#master[m]['url']=url
-	#print(url)
-
-	#print("========================================")
-	print("\n Looking for Vulnerabilities :")
-	vuls['common']=json.loads(vuln.scanner(ip))
-
-	master[m]['vuln']=vuls
-	#print(vuls)
-	#print("========================================")
-	"""
-
-
-
-	
-
-	#print(vulnerability.scanner(ip))
-	#print(master[m])
 	
 
 #print(master)
@@ -425,4 +398,11 @@ f.write(json.dumps(master))
 f.close()
 """
 
+data=create_HTML(master)
+
+f.open(os.getcwd().replace('\\','/')+'/output.html')
+f.write(data)
+f.close()
+
 _rmdir(path)
+_rmdir('data')
