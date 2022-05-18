@@ -400,7 +400,7 @@ f.close()
 
 data=create_HTML(master)
 
-f.open(os.getcwd().replace('\\','/')+'/output.html')
+f=open(os.getcwd().replace('\\','/')+'/output.html','w')
 f.write(data)
 f.close()
 
