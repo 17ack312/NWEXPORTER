@@ -339,9 +339,9 @@ for m in master.keys():
 	print("\n\t",style.on_blue("   TYPE   "),"\t",style.on_blue(" INFORMATION "))
 	print()
 	##Service Scan
-	#serv_p=json.loads(scanner.serv(ip))
+	serv_p=json.loads(scanner.serv(ip))
 	#extended Scan
-	serv_p=json.loads(scanner.ext(ip))
+	#serv_p=json.loads(scanner.ext(ip))
 
 	master[m]['ports']=serv_p[ip]['port']
 	try:
@@ -398,9 +398,9 @@ f.write(json.dumps(master))
 f.close()
 """
 
-data=create_HTML(master)
+data=output.create_HTML(master)
 
-f=open(os.getcwd().replace('\\','/')+'/output.html','w')
+f=open(os.getcwd().replace('\\','/')+'/output_'+str(datetime.datetime.now()).replace(' ','_')+'.html','w')
 f.write(data)
 f.close()
 
