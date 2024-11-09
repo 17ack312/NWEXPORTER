@@ -1,0 +1,343 @@
+<html><head><meta http-equiv="refresh" content="60"/>
+	<style>
+		body{
+	font-family: Cambria Math;
+	font-size: 16px;
+}
+
+td#chart{
+ 	width: 50%;
+ 	padding: 15px;
+ }
+ .vuln_chart {
+ 	height: 250px;
+ 	text-align: center;
+ 	width: 450px;
+ }
+ #host_summary td ,#host_summary th{
+ 	/*border: 1px solid black;*/
+ }
+ #host_summary th{
+ 	text-align: left;
+ 	padding-left: 10px;
+ 	width: 20%;
+ 	padding-right: 5px;
+ 	color: white;
+ 	background: #4b0082;
+ }
+ #host_summary td{
+ 	color: black;
+ 	background: #a6e7ff;
+ 	padding-left: 10px;
+ 	font-weight: bold;
+ }
+ #host_summary td ul{
+ 	padding-left: 10px;
+ }
+
+#host_vuln_summary th{
+	background: #4b0082;
+	color: white;
+	padding: 2px;
+}
+
+#host_vuln_summary tr td#port , #host_vuln_summary tr td#sl{
+	width: 5px;
+	text-align: center;
+}
+tr.critical{
+	background: #e9967a;
+}
+tr.high{
+	background: #ff9999;
+}
+tr.medium{
+	background: #faf0be;
+}
+tr.low{
+	background: #ace1af;
+}
+tr.informational{
+	background: #afeeee;
+}
+ tr.critical #risk , tr.critical #score {
+ 	background: #800000;
+ 	color: white;
+ 	text-align: center;
+ }
+ tr.high #risk , tr.high #score {
+ 	background: #ff0000;
+ 	color: white;
+ 	text-align: center;
+ }
+ tr.medium #risk , tr.medium #score {
+ 	background: #daa520;
+ 	color: white;
+ 	text-align: center;
+ }
+ tr.low #risk , tr.low #score {
+ 	background: #3cb371;
+ 	color: white;
+ 	text-align: center;
+ }
+ tr.informational #risk , .informational #score {
+ 	background: #00ced1;
+ 	color: white;
+ 	text-align: center;
+ }
+
+ div#host_vuln_info table{
+ 	margin-bottom: 100px;
+ }
+
+ h4{
+ 	text-decoration: underline;
+ 	color: ;
+ }
+
+ #host_port_info th{
+ 	background: #4b0082;
+ 	color: white;
+ }
+ #host_port_info td{
+ 	background: #a6e7ff;
+ 	padding-left: 7px;
+ }
+
+ #port_summary tr td#port{
+ 	font-weight: bold;
+ }
+
+ #v_info h4{
+ 	text-align: center;
+ }
+ h2{
+ 	text-align: center;
+ 	text-decoration: underline;
+ }
+
+div#mainChart{
+	width: 500px;
+	height: 320px;
+	margin-bottom: 50px;
+	border: 2px solid black;
+}
+#total_vuln th{
+	background: black;
+	color: white;
+	border: 1px solid black;
+	padding: 7px;
+}
+table#total_vuln{
+	width: 75%;
+	margin-bottom: 100px;
+
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+#total_vuln td#sl , #total_vuln td#system ,#total_vuln td#ref, #total_vuln td#score ,#total_vuln td#risk {
+	text-align: center;
+	border: 1px solid black;
+
+}
+#total_vuln td#name{
+	padding-left: 7px;
+	border: 1px solid black;
+
+}
+
+#vuln_summ table{
+	width: 75%;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+
+#vuln_summ table td , #vuln_summ table th{
+	border: 1px solid black;
+}
+
+#vuln_summ #name span{
+	font-weight: bold;
+	font-size: 30px;
+	padding-left: 20px;
+}
+.critical
+	</style>
+	<link rel="stylesheet" type="text/css" href="newx.css"><script type="text/javascript">function demo() {CanvasJS.addColorSet("mycolor",["#8b0000","#ff0000","#daa520","#b2ec5d","#00ced1"]);
+        var chart = new CanvasJS.Chart("chartContainer1",
+        {colorSet: "mycolor",title:{text: "Vulnerability Summary"}, data: [{indexLabelPlacement: "outside",type: "doughnut",showInLegend: true,toolTipContent: "{y} - #percent %",yValueFormatString: "count ,#",legendText: "{indexLabel}",
+                dataPoints: [
+                {  y: 0 , indexLabel: "Critical"}, {  y: 1, indexLabel: "High" },{  y: 0 , indexLabel: "Medium"}, {  y: 1, indexLabel: "Low" },{  y: 3, indexLabel: "Informational" },]}]});chart.render();CanvasJS.addColorSet("mycolor",["#8b0000","#ff0000","#daa520","#b2ec5d","#00ced1"]);
+    var chart = new CanvasJS.Chart("mainChart",
+    {colorSet: "mycolor",title:{text: ""}, data: [{indexLabelPlacement: "outside",type: "pie",showInLegend: true,toolTipContent: "{y} - #percent %",yValueFormatString: "count ,#",legendText: "{indexLabel}",
+            dataPoints: [
+            {  y: 0 , indexLabel: "Critical"}, {  y: 1, indexLabel: "High" },{  y: 0 , indexLabel: "Medium"}, {  y: 1, indexLabel: "Low" },{  y: 3, indexLabel: "Informational" },]}]});chart.render();}</script><script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head><body onload="demo()">			
+				<div align="center" id="total_vuln"><h2>TOTAL VULNERABILITIES FOUND</h2><div class="vuln_chart" id="mainChart"></div><table id="total_vuln">				<tr><th>SL</th><th>SERVERITY</th><th>VULNERABILITY NAME</th><th>AFFECTED SYSTEM</th><th>SCORE</th><th>CLASSIFICATION</th></tr>
+				<tr class="high"><td id="sl">1</td><td id="risk">High</td><td id="name"><a href="#ssl_medium_strength_cipher_suites_supported_(sweet32)">SSL Medium Strength Cipher Suites Supported (SWEET32)</a></td><td id="system"><a href="#angulenergy_co_in">angulenergy.co.in</a></td><td id="score">7.5</td><td id="ref"><a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2016-2183">CVE-2016-2183</a></td></tr>
+				<tr class="low"><td id="sl">2</td><td id="risk">Low</td><td id="name"><a href="#ssh_weak_mac_algorithms_enabled">SSH Weak MAC Algorithms Enabled</a></td><td id="system"><a href="#angulenergy_co_in">angulenergy.co.in</a></td><td id="score">2.6</td><td id="ref"><a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2008-5161">CVE-2008-5161</a></td></tr>
+				<tr class="informational"><td id="sl">3</td><td id="risk">Informational</td><td id="name"><a href="#traceroute_information">Traceroute Information</a></td><td id="system"><a href="#angulenergy_co_in">angulenergy.co.in</a></td><td id="score">0.0</td><td id="ref"></td></tr>
+				<tr class="informational"><td id="sl">4</td><td id="risk">Informational</td><td id="name"><a href="#options_method_enabled">OPTIONS Method Enabled</a></td><td id="system"><a href="#angulenergy_co_in">angulenergy.co.in</a></td><td id="score">0.0</td><td id="ref"><a target="_blank" href="https://cwe.mitre.org/data/definitions/16.html">CWE:16</a></td></tr>
+				<tr class="informational"><td id="sl">5</td><td id="risk">Informational</td><td id="name"><a href="#smtp_service_supports_starttls_command">SMTP Service Supports STARTTLS Command</a></td><td id="system"><a href="#angulenergy_co_in">angulenergy.co.in</a></td><td id="score">0.0</td><td id="ref"></td></tr>
+</table></div>
+<center><h2>HOST WISE ANALYSIS</h2></center>	<div class="host_summary" align="center"><table><tr><td id="info">
+		<div align="center" id="host_info">
+		<h4>HOST DETAILS</h4>
+		<table id="host_summary">
+			<tr id="host"><th>HOST</th><td id="angulenergy_co_in">angulenergy.co.in</td></tr>
+			<tr id="ip"><th>IP ADDRESS</th><td>162.215.252.246</td></tr>
+			<tr id="hostname"><th>HOSTNAME</th><td>162-215-252-246.unifiedlayer.com<br>angulenergy.co.in</td>
+			<tr id="os"><th>OPERATING SYSTEM</th><td>FreeBSD 6.2-RELEASE</td></tr>
+			<tr id="uptime"><th>SYSTEM UPTIME</th><td>46 days</td></tr>
+			<tr id="duration"><th>SCAN DURATION</th><td>3:07:11 hrs</td></tr>
+			<tr id="link"><th>AVAILABLE LINKS</th><td><ul>
+				<li><a target="_blank" href="https://angulenergy.co.in">https://angulenergy.co.in</a></li>
+				<li><a target="_blank" href="https://angulenergy.co.in:443">https://angulenergy.co.in:443</a></li>
+				<li><a target="_blank" href="http://angulenergy.co.in:80">http://angulenergy.co.in:80</a></li>
+			</ul></td></tr>
+		</table></div></td><td id="ports">
+		<div align="center" id="host_port_info">
+		<h4>OPEN PORT DETAILS</h4>
+		<table id="port_summary">
+			<tr><th>PORT</th><th>INFORMATION</th></tr>
+			<tr><td id="port">[TCP] 21</td><td id="info">FTP Pure-FTPd  </td></tr>
+			<tr><td id="port">[TCP] 22</td><td id="info">SSH OpenSSH 7.4 protocol 2.0</td></tr>
+			<tr><td id="port">[TCP] 26</td><td id="info">SMTP Exim smtpd 4.94.2 </td></tr>
+			<tr><td id="port">[TCP] 53</td><td id="info">DOMAIN ISC BIND 9.11.4-P2 RedHat Enterprise Linux 7</td></tr>
+			<tr><td id="port">[TCP] 80</td><td id="info">HTTP Apache httpd  </td></tr>
+			<tr><td id="port">[TCP] 110</td><td id="info">POP3 Dovecot pop3d  </td></tr>
+			<tr><td id="port">[TCP] 143</td><td id="info">IMAP Dovecot imapd  </td></tr>
+			<tr><td id="port">[TCP] 443</td><td id="info">HTTP Apache httpd  </td></tr>
+			<tr><td id="port">[TCP] 465</td><td id="info">SMTPS   </td></tr>
+			<tr><td id="port">[TCP] 554</td><td id="info">RTSP   </td></tr>
+			<tr><td id="port">[TCP] 587</td><td id="info">SMTP Exim smtpd 4.94.2 </td></tr>
+			<tr><td id="port">[TCP] 993</td><td id="info">IMAPS   </td></tr>
+			<tr><td id="port">[TCP] 995</td><td id="info">POP3S   </td></tr>
+			<tr><td id="port">[TCP] 1723</td><td id="info">TCPWRAPPED   </td></tr>
+			<tr><td id="port">[TCP] 3306</td><td id="info">MYSQL MySQL 5.7.23-23 </td></tr>
+		</table></div></td></tr></table>
+	</div>
+		<div align="center" id="host_vuln_info"><table><tr><td id="chart">
+			<div class="vuln_chart" id="chartContainer1"></div></td><td id="v_info">
+			<div><h4>VULNERABILITY SUMMARY</h4>
+			<table id="host_vuln_summary">
+				<tr><th>SL</th><th>SERVERITY</th><th>VULNERABILITY NAME</th><th>SCORE</th><th>AFFECTED PORT</th></tr>
+				<tr class="high"><td id="sl">1</td><td id="risk">High</td><td id="name"><a href="#ssl_medium_strength_cipher_suites_supported_(sweet32)">SSL Medium Strength Cipher Suites Supported (SWEET32)</a></td><td id="score">7.5</td><td id="port">3306</td></tr>
+				<tr class="low"><td id="sl">2</td><td id="risk">Low</td><td id="name"><a href="#ssh_weak_mac_algorithms_enabled">SSH Weak MAC Algorithms Enabled</a></td><td id="score">2.6</td><td id="port">22</td></tr>
+				<tr class="informational"><td id="sl">3</td><td id="risk">Informational</td><td id="name"><a href="#traceroute_information">Traceroute Information</a></td><td id="score">0.0</td><td id="port">443</td></tr>
+				<tr class="informational"><td id="sl">4</td><td id="risk">Informational</td><td id="name"><a href="#options_method_enabled">OPTIONS Method Enabled</a></td><td id="score">0.0</td><td id="port">443</td></tr>
+				<tr class="informational"><td id="sl">5</td><td id="risk">Informational</td><td id="name"><a href="#smtp_service_supports_starttls_command">SMTP Service Supports STARTTLS Command</a></td><td id="score">0.0</td><td id="port">587</td></tr>
+		</table></div></td></tr></table></div>
+<h2>VULNERABILITY DETAILS</h2>		<div id="vuln_summ" align="center">
+			<table class="high">
+				<tr id="name"><td colspan=3 ><span id="ssl_medium_strength_cipher_suites_supported_(sweet32)">SSL Medium Strength Cipher Suites Supported (SWEET32)</span>
+				<br><span id="point">Category : </span><span id="risk">High</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">7.5</span><span id="string">CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N</span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">The remote service supports the use of medium strength SSL ciphers.</td><td td="imp">The remote host supports the use of SSL ciphers that offer medium strength encryption.Any encryption that uses key lengths at least 64 bits and less than 112 bits, or else that uses the 3DES encryption suite.</td><td td="sol">Reconfigure the affected application if possible to avoid use of medium strength ciphers.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  TLSv1.1: 
+    ciphers: 
+      TLS_DHE_RSA_WITH_AES_128_CBC_SHA (dh 2048) - A
+      TLS_DHE_RSA_WITH_AES_256_CBC_SHA (dh 2048) - A
+      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (secp256r1) - A
+      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (secp256r1) - A
+      TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 2048) - C
+      TLS_RSA_WITH_AES_128_CBC_SHA (rsa 2048) - A
+      TLS_RSA_WITH_AES_256_CBC_SHA (rsa 2048) - A
+    compressors: 
+      NULL
+    cipher preference: client
+    warnings: 
+      64-bit block cipher 3DES vulnerable to SWEET32 attack
+  TLSv1.2: 
+    ciphers: 
+      TLS_DHE_RSA_WITH_AES_128_CBC_SHA (dh 2048) - A
+      TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 (dh 2048) - A
+      TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 (dh 2048) - A
+      TLS_DHE_RSA_WITH_AES_256_CBC_SHA (dh 2048) - A
+      TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 (dh 2048) - A
+      TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 (dh 2048) - A
+      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (secp256r1) - A
+      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 (secp256r1) - A
+      TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (secp256r1) - A
+      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (secp256r1) - A
+      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 (secp256r1) - A
+      TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (secp256r1) - A
+      TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 2048) - C
+      TLS_RSA_WITH_AES_128_CBC_SHA (rsa 2048) - A
+      TLS_RSA_WITH_AES_128_CBC_SHA256 (rsa 2048) - A
+      TLS_RSA_WITH_AES_128_GCM_SHA256 (rsa 2048) - A
+      TLS_RSA_WITH_AES_256_CBC_SHA (rsa 2048) - A
+      TLS_RSA_WITH_AES_256_CBC_SHA256 (rsa 2048) - A
+      TLS_RSA_WITH_AES_256_GCM_SHA384 (rsa 2048) - A
+    compressors: 
+      NULL
+    cipher preference: client
+    warnings: 
+      64-bit block cipher 3DES vulnerable to SWEET32 attack
+  least strength: C</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://www.openssl.org/blog/blog/2016/08/24/sweet32/">https://www.openssl.org/blog/blog/2016/08/24/sweet32/</a><br><a target="_blank" href="https://sweet32.info">https://sweet32.info</a></td></tr>
+			</table>
+			<table class="low">
+				<tr id="name"><td colspan=3 ><span id="ssh_weak_mac_algorithms_enabled">SSH Weak MAC Algorithms Enabled</span>
+				<br><span id="point">Category : </span><span id="risk">Low</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">2.6</span><span id="string">CVSS2#AV:N/AC:H/Au:N/C:P/I:N/A:N</span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">The remote SSH server is configured to allow MD5 and 96-bit MAC algorithms.</td><td td="imp">The remote SSH server is configured to allow either MD5 or 96-bit MAC algorithms, both of which are considered weak.</td><td td="sol">Contact the vendor or consult product documentation to disable MD5 and 96-bit MAC algorithms.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  kex_algorithms: (1)
+      diffie-hellman-group-exchange-sha256
+  server_host_key_algorithms: (1)
+      ssh-dss
+  encryption_algorithms: (3)
+      aes256-ctr
+      aes192-ctr
+      aes128-ctr
+  mac_algorithms: (4)
+      hmac-sha2-512
+      hmac-sha2-256
+      hmac-ripemd160
+      hmac-ripemd160@openssh.com
+  compression_algorithms: (2)
+      none
+      zlib@openssh.com</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://www.virtuesecurity.com/kb/ssh-weak-mac-algorithms-enabled/">https://www.virtuesecurity.com/kb/ssh-weak-mac-algorithms-enabled/</a></td></tr>
+			</table>
+			<table class="informational">
+				<tr id="name"><td colspan=3 ><span id="traceroute_information">Traceroute Information</span>
+				<br><span id="point">Category : </span><span id="risk">Informational</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">0.0</span><span id="string"></span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">It was possible to obtain traceroute information.</td><td td="imp">Makes a traceroute to the remote host.</td><td td="sol">N/A</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  Possible reverse proxy detected.
+</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href=""></a></td></tr>
+			</table>
+			<table class="informational">
+				<tr id="name"><td colspan=3 ><span id="options_method_enabled">OPTIONS Method Enabled</span>
+				<br><span id="point">Category : </span><span id="risk">Informational</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">0.0</span><span id="string"></span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">OPTIONS method is allowed. This issue is reported as extra information.</td><td td="imp">Information disclosed from this page can be used to gain additional information about the target system.</td><td td="sol">Disable OPTIONS method in all production systems.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  Supported Methods: GET HEAD POST OPTIONS</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)">https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)</a><br><a target="_blank" href="http://www.nessus.org/u?d9c03a9a">http://www.nessus.org/u?d9c03a9a</a><br><a target="_blank" href="http://www.nessus.org/u?b019cbdb">http://www.nessus.org/u?b019cbdb</a></td></tr>
+			</table>
+			<table class="informational">
+				<tr id="name"><td colspan=3 ><span id="smtp_service_supports_starttls_command">SMTP Service Supports STARTTLS Command</span>
+				<br><span id="point">Category : </span><span id="risk">Informational</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">0.0</span><span id="string"></span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">The remote SMTP service supports the use of the 'STARTTLS' command to switch from a cleartext to an encrypted communications channel.</td><td td="imp">N/A</td><td td="sol">N/A</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>bh-55.webhostbox.net Hello 162-215-252-246.unifiedlayer.com [49.37.43.136], SIZE 52428800, 8BITMIME, PIPELINING, PIPE_CONNECT, AUTH PLAIN LOGIN, STARTTLS, HELP
+ Commands supported: AUTH STARTTLS HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://en.wikipedia.org/wiki/STARTTLS">https://en.wikipedia.org/wiki/STARTTLS</a><br><a target="_blank" href="https://tools.ietf.org/html/rfc2487">https://tools.ietf.org/html/rfc2487</a></td></tr>
+			</table>
+		</div>
+</body></html>
