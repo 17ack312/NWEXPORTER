@@ -1,0 +1,240 @@
+<html><head><meta http-equiv="refresh" content="60"/><link rel="stylesheet" type="text/css" href="newx.css"><script type="text/javascript">function demo() {CanvasJS.addColorSet("mycolor",["#8b0000","#ff0000","#daa520","#b2ec5d","#00ced1"]);
+        var chart = new CanvasJS.Chart("chartContainer1",
+        {colorSet: "mycolor",title:{text: "Vulnerability Summary"}, data: [{indexLabelPlacement: "outside",type: "doughnut",showInLegend: true,toolTipContent: "{y} - #percent %",yValueFormatString: "count ,#",legendText: "{indexLabel}",
+                dataPoints: [
+                {  y: 0 , indexLabel: "Critical"}, {  y: 1, indexLabel: "High" },{  y: 0 , indexLabel: "Medium"}, {  y: 2, indexLabel: "Low" },{  y: 3, indexLabel: "Informational" },]}]});chart.render();CanvasJS.addColorSet("mycolor",["#8b0000","#ff0000","#daa520","#b2ec5d","#00ced1"]);
+    var chart = new CanvasJS.Chart("mainChart",
+    {colorSet: "mycolor",title:{text: ""}, data: [{indexLabelPlacement: "outside",type: "pie",showInLegend: true,toolTipContent: "{y} - #percent %",yValueFormatString: "count ,#",legendText: "{indexLabel}",
+            dataPoints: [
+            {  y: 0 , indexLabel: "Critical"}, {  y: 1, indexLabel: "High" },{  y: 0 , indexLabel: "Medium"}, {  y: 2, indexLabel: "Low" },{  y: 3, indexLabel: "Informational" },]}]});chart.render();}</script><script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head><body onload="demo()">			
+				<div align="center" id="total_vuln"><h2>TOTAL VULNERABILITIES FOUND</h2><div class="vuln_chart" id="mainChart"></div><table id="total_vuln">				<tr><th>SL</th><th>SERVERITY</th><th>VULNERABILITY NAME</th><th>AFFECTED SYSTEM</th><th>SCORE</th><th>CLASSIFICATION</th></tr>
+				<tr class="high"><td id="sl">1</td><td id="risk">High</td><td id="name"><a href="#slowloris_dos_attack">Slowloris DOS Attack</a></td><td id="system"><a href="#owval_com">owval.com</a></td><td id="score">7.5</td><td id="ref"><a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2018-12122">CVE-2018-12122</a><br><a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2007-6750">CVE-2007-6750</a></td></tr>
+				<tr class="low"><td id="sl">2</td><td id="risk">Low</td><td id="name"><a href="#ssh_weak_mac_algorithms_enabled">SSH Weak MAC Algorithms Enabled</a></td><td id="system"><a href="#owval_com">owval.com</a></td><td id="score">2.6</td><td id="ref"><a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2008-5161">CVE-2008-5161</a></td></tr>
+				<tr class="low"><td id="sl">3</td><td id="risk">Low</td><td id="name"><a href="#ssh_server_cbc_mode_ciphers_enabled">SSH Server CBC Mode Ciphers Enabled</a></td><td id="system"><a href="#owval_com">owval.com</a></td><td id="score">2.6</td><td id="ref"><a target="_blank" href="https://nvd.nist.gov/vuln/detail/CVE-2008-5161">CVE-2008-5161</a><br><a target="_blank" href="https://cwe.mitre.org/data/definitions/200.html">CWE:200</a><br><a target="_blank" href="https://www.kb.cert.org/vuls/id/958563.html">CERT:958563</a></td></tr>
+				<tr class="informational"><td id="sl">4</td><td id="risk">Informational</td><td id="name"><a href="#smtp_service_supports_starttls_command">SMTP Service Supports STARTTLS Command</a></td><td id="system"><a href="#owval_com">owval.com</a></td><td id="score">0.0</td><td id="ref"></td></tr>
+				<tr class="informational"><td id="sl">5</td><td id="risk">Informational</td><td id="name"><a href="#traceroute_information">Traceroute Information</a></td><td id="system"><a href="#owval_com">owval.com</a></td><td id="score">0.0</td><td id="ref"></td></tr>
+				<tr class="informational"><td id="sl">6</td><td id="risk">Informational</td><td id="name"><a href="#options_method_enabled">OPTIONS Method Enabled</a></td><td id="system"><a href="#owval_com">owval.com</a></td><td id="score">0.0</td><td id="ref"><a target="_blank" href="https://cwe.mitre.org/data/definitions/16.html">CWE:16</a></td></tr>
+</table></div>
+<center><h2>HOST WISE ANALYSIS</h2></center>	<div class="host_summary" align="center"><table><tr><td id="info">
+		<div align="center" id="host_info">
+		<h4>HOST DETAILS</h4>
+		<table id="host_summary">
+			<tr id="host"><th>HOST</th><td id="owval_com">owval.com</td></tr>
+			<tr id="ip"><th>IP ADDRESS</th><td>216.10.251.16</td></tr>
+			<tr id="hostname"><th>HOSTNAME</th><td>owval.com</td>
+			<tr id="os"><th>OPERATING SYSTEM</th><td>Linux 4.4</td></tr>
+			<tr id="uptime"><th>SYSTEM UPTIME</th><td>2 days</td></tr>
+			<tr id="duration"><th>SCAN DURATION</th><td>3:06:35 hrs</td></tr>
+			<tr id="link"><th>AVAILABLE LINKS</th><td><ul>
+				<li><a target="_blank" href="https://owval.com:443">https://owval.com:443</a></li>
+				<li><a target="_blank" href="http://216.10.251.16">http://216.10.251.16</a></li>
+				<li><a target="_blank" href="https://owval.com">https://owval.com</a></li>
+				<li><a target="_blank" href="http://216.10.251.16:80">http://216.10.251.16:80</a></li>
+			</ul></td></tr>
+		</table></div></td><td id="ports">
+		<div align="center" id="host_port_info">
+		<h4>OPEN PORT DETAILS</h4>
+		<table id="port_summary">
+			<tr><th>PORT</th><th>INFORMATION</th></tr>
+			<tr><td id="port">[TCP] 21</td><td id="info">TCPWRAPPED   </td></tr>
+			<tr><td id="port">[TCP] 22</td><td id="info">SSH OpenSSH 7.4 protocol 2.0</td></tr>
+			<tr><td id="port">[TCP] 53</td><td id="info">DOMAIN ISC BIND 9.11.4-P2 RedHat Enterprise Linux 7</td></tr>
+			<tr><td id="port">[TCP] 80</td><td id="info">HTTP Apache httpd  </td></tr>
+			<tr><td id="port">[TCP] 110</td><td id="info">POP3 Dovecot pop3d  </td></tr>
+			<tr><td id="port">[TCP] 111</td><td id="info">RPCBIND  2-4 RPC #100000</td></tr>
+			<tr><td id="port">[TCP] 143</td><td id="info">IMAP Dovecot imapd  </td></tr>
+			<tr><td id="port">[TCP] 443</td><td id="info">HTTP Apache httpd  </td></tr>
+			<tr><td id="port">[TCP] 465</td><td id="info">SMTP Exim smtpd 4.95 </td></tr>
+			<tr><td id="port">[TCP] 554</td><td id="info">RTSP   </td></tr>
+			<tr><td id="port">[TCP] 587</td><td id="info">SMTP Exim smtpd 4.95 </td></tr>
+			<tr><td id="port">[TCP] 993</td><td id="info">IMAPS   </td></tr>
+			<tr><td id="port">[TCP] 995</td><td id="info">POP3S   </td></tr>
+			<tr><td id="port">[TCP] 1723</td><td id="info">TCPWRAPPED   </td></tr>
+			<tr><td id="port">[TCP] 3306</td><td id="info">MYSQL MySQL  unauthorized</td></tr>
+		</table></div></td></tr></table>
+	</div>
+		<div align="center" id="host_vuln_info"><table><tr><td id="chart">
+			<div class="vuln_chart" id="chartContainer1"></div></td><td id="v_info">
+			<div><h4>VULNERABILITY SUMMARY</h4>
+			<table id="host_vuln_summary">
+				<tr><th>SL</th><th>SERVERITY</th><th>VULNERABILITY NAME</th><th>SCORE</th><th>AFFECTED PORT</th></tr>
+				<tr class="high"><td id="sl">1</td><td id="risk">High</td><td id="name"><a href="#slowloris_dos_attack">Slowloris DOS Attack</a></td><td id="score">7.5</td><td id="port">443</td></tr>
+				<tr class="low"><td id="sl">2</td><td id="risk">Low</td><td id="name"><a href="#ssh_weak_mac_algorithms_enabled">SSH Weak MAC Algorithms Enabled</a></td><td id="score">2.6</td><td id="port">22</td></tr>
+				<tr class="low"><td id="sl">3</td><td id="risk">Low</td><td id="name"><a href="#ssh_server_cbc_mode_ciphers_enabled">SSH Server CBC Mode Ciphers Enabled</a></td><td id="score">2.6</td><td id="port">22</td></tr>
+				<tr class="informational"><td id="sl">4</td><td id="risk">Informational</td><td id="name"><a href="#smtp_service_supports_starttls_command">SMTP Service Supports STARTTLS Command</a></td><td id="score">0.0</td><td id="port">587</td></tr>
+				<tr class="informational"><td id="sl">5</td><td id="risk">Informational</td><td id="name"><a href="#traceroute_information">Traceroute Information</a></td><td id="score">0.0</td><td id="port">443</td></tr>
+				<tr class="informational"><td id="sl">6</td><td id="risk">Informational</td><td id="name"><a href="#options_method_enabled">OPTIONS Method Enabled</a></td><td id="score">0.0</td><td id="port">443</td></tr>
+		</table></div></td></tr></table></div>
+<h2>VULNERABILITY DETAILS</h2>		<div id="vuln_summ" align="center">
+			<table class="high">
+				<tr id="name"><td colspan=3 ><span id="slowloris_dos_attack">Slowloris DOS Attack</span>
+				<br><span id="point">Category : </span><span id="risk">High</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">7.5</span><span id="string">CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H</span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">Slowloris tries to keep many connections to the target web server open and hold them open as long as possible.  It accomplishes this by opening connections to the target web server and sending a partial request. By doing so, it starves    the http server's resources causing Denial Of Service.</td><td td="imp">Slowloris is an application layer attack which operates by utilizing partial HTTP requests. The attack functions by opening connections to a targeted Web server and then keeping those connections open as long as it can.<br>Slowloris is not a category of attack but is instead a specific attack tool designed to allow a single machine to take down a server without using a lot of bandwidth. Unlike bandwidth-consuming reflection-based DDoS attacks such as NTP amplification, this type of attack uses a low amount of bandwidth, and instead aims to use up server resources with requests that seem slower than normal but otherwise mimic regular traffic. It falls in the category of attacks known as “low and slow” attacks. The targeted server will only have so many threads available to handle concurrent connections. Each server thread will attempt to stay alive while waiting for the slow request to complete, which never occurs. When the server’s maximum possible connections has been exceeded, each additional connection will not be answered and denial-of-service will occur.<br>A Slowloris attack occurs in 4 steps: <br> i) The attacker first opens multiple connections to the targeted server by sending multiple partial HTTP request headers.<br> ii) The target opens a thread for each incoming request, with the intent of closing the thread once the connection is completed. In order to be efficient, if a connection takes too long, the server will timeout the exceedingly long connection, freeing the thread up for the next request.<br> iii) To prevent the target from timing out the connections, the attacker periodically sends partial request headers to the target in order to keep the request alive. In essence saying, “I’m still here! I’m just slow, please wait for me.”<br> iv) The targeted server is never able to release any of the open partial connections while waiting for the termination of the request. Once all available threads are in use, the server will be unable to respond to additional requests made from regular traffic, resulting in denial-of-service.<br>The key behind a Slowloris is its ability to cause a lot of trouble with very little bandwidth consumption.</td><td td="sol">For web servers that are vulnerable to Slowloris, there are ways to mitigate some of the impact. Mitigation options for vulnerable servers can be broken down into 3 general categories:<br>Increase server availability - Increasing the maximum number of clients the server will allow at any one time will increase the number of connections the attacker must make before they can overload the server. Realistically, an attacker may scale the number of attacks to overcome server capacity regardless of increases.<br>Rate limit incoming requests - Restricting access based on certain usage factors will help mitigate a Slowloris attack. Techniques such as limiting the maximum number of connections a single IP address is allowed to make, restricting slow transfer speeds, and limiting the maximum time a client is allowed to stay connected are all approaches for limiting the effectiveness of low and slow attacks.<br>Cloud-based protection - Use a service that can function as a reverse proxy, protecting the origin server.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  VULNERABLE:
+  Slowloris DOS attack
+    State: LIKELY VULNERABLE
+    IDs:  CVE:CVE-2007-6750
+      Slowloris tries to keep many connections to the target web server open and hold
+      them open as long as possible.  It accomplishes this by opening connections to
+      the target web server and sending a partial request. By doing so, it starves
+      the http server's resources causing Denial Of Service.
+      
+    Disclosure date: 2009-09-17
+    References:
+      http://ha.ckers.org/slowloris/
+      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="http://ha.ckers.org/slowloris/">http://ha.ckers.org/slowloris/</a><br><a target="_blank" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750">http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750</a></td></tr>
+			</table>
+			<table class="low">
+				<tr id="name"><td colspan=3 ><span id="ssh_weak_mac_algorithms_enabled">SSH Weak MAC Algorithms Enabled</span>
+				<br><span id="point">Category : </span><span id="risk">Low</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">2.6</span><span id="string">CVSS2#AV:N/AC:H/Au:N/C:P/I:N/A:N</span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">The remote SSH server is configured to allow MD5 and 96-bit MAC algorithms.</td><td td="imp">The remote SSH server is configured to allow either MD5 or 96-bit MAC algorithms, both of which are considered weak.</td><td td="sol">Contact the vendor or consult product documentation to disable MD5 and 96-bit MAC algorithms.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  kex_algorithms: (12)
+      curve25519-sha256
+      curve25519-sha256@libssh.org
+      ecdh-sha2-nistp256
+      ecdh-sha2-nistp384
+      ecdh-sha2-nistp521
+      diffie-hellman-group-exchange-sha256
+      diffie-hellman-group16-sha512
+      diffie-hellman-group18-sha512
+      diffie-hellman-group-exchange-sha1
+      diffie-hellman-group14-sha256
+      diffie-hellman-group14-sha1
+      diffie-hellman-group1-sha1
+  server_host_key_algorithms: (5)
+      ssh-rsa
+      rsa-sha2-512
+      rsa-sha2-256
+      ecdsa-sha2-nistp256
+      ssh-ed25519
+  encryption_algorithms: (12)
+      chacha20-poly1305@openssh.com
+      aes128-ctr
+      aes192-ctr
+      aes256-ctr
+      aes128-gcm@openssh.com
+      aes256-gcm@openssh.com
+      aes128-cbc
+      aes192-cbc
+      aes256-cbc
+      blowfish-cbc
+      cast128-cbc
+      3des-cbc
+  mac_algorithms: (10)
+      umac-64-etm@openssh.com
+      umac-128-etm@openssh.com
+      hmac-sha2-256-etm@openssh.com
+      hmac-sha2-512-etm@openssh.com
+      hmac-sha1-etm@openssh.com
+      umac-64@openssh.com
+      umac-128@openssh.com
+      hmac-sha2-256
+      hmac-sha2-512
+      hmac-sha1
+  compression_algorithms: (2)
+      none
+      zlib@openssh.com</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://www.virtuesecurity.com/kb/ssh-weak-mac-algorithms-enabled/">https://www.virtuesecurity.com/kb/ssh-weak-mac-algorithms-enabled/</a></td></tr>
+			</table>
+			<table class="low">
+				<tr id="name"><td colspan=3 ><span id="ssh_server_cbc_mode_ciphers_enabled">SSH Server CBC Mode Ciphers Enabled</span>
+				<br><span id="point">Category : </span><span id="risk">Low</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">2.6</span><span id="string">CVSS2#AV:N/AC:H/Au:N/C:P/I:N/A:N</span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">The SSH server is configured to use Cipher Block Chaining.</td><td td="imp">The SSH server is configured to support Cipher Block Chaining (CBC) encryption. This may allow an attacker to recover the plaintext message from the ciphertext.</td><td td="sol">Contact the vendor or consult product documentation to disable CBC mode cipher encryption, and enable CTR or GCM cipher mode encryption.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  kex_algorithms: (12)
+      curve25519-sha256
+      curve25519-sha256@libssh.org
+      ecdh-sha2-nistp256
+      ecdh-sha2-nistp384
+      ecdh-sha2-nistp521
+      diffie-hellman-group-exchange-sha256
+      diffie-hellman-group16-sha512
+      diffie-hellman-group18-sha512
+      diffie-hellman-group-exchange-sha1
+      diffie-hellman-group14-sha256
+      diffie-hellman-group14-sha1
+      diffie-hellman-group1-sha1
+  server_host_key_algorithms: (5)
+      ssh-rsa
+      rsa-sha2-512
+      rsa-sha2-256
+      ecdsa-sha2-nistp256
+      ssh-ed25519
+  encryption_algorithms: (12)
+      chacha20-poly1305@openssh.com
+      aes128-ctr
+      aes192-ctr
+      aes256-ctr
+      aes128-gcm@openssh.com
+      aes256-gcm@openssh.com
+      aes128-cbc
+      aes192-cbc
+      aes256-cbc
+      blowfish-cbc
+      cast128-cbc
+      3des-cbc
+  mac_algorithms: (10)
+      umac-64-etm@openssh.com
+      umac-128-etm@openssh.com
+      hmac-sha2-256-etm@openssh.com
+      hmac-sha2-512-etm@openssh.com
+      hmac-sha1-etm@openssh.com
+      umac-64@openssh.com
+      umac-128@openssh.com
+      hmac-sha2-256
+      hmac-sha2-512
+      hmac-sha1
+  compression_algorithms: (2)
+      none
+      zlib@openssh.com</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href=""></a></td></tr>
+			</table>
+			<table class="informational">
+				<tr id="name"><td colspan=3 ><span id="smtp_service_supports_starttls_command">SMTP Service Supports STARTTLS Command</span>
+				<br><span id="point">Category : </span><span id="risk">Informational</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">0.0</span><span id="string"></span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">The remote SMTP service supports the use of the 'STARTTLS' command to switch from a cleartext to an encrypted communications channel.</td><td td="imp">N/A</td><td td="sol">N/A</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>216-10-251-16.webhostbox.net Hello nmap.scanme.org [49.37.43.248], SIZE 52428800, 8BITMIME, PIPELINING, PIPE_CONNECT, STARTTLS, HELP
+ Commands supported: AUTH STARTTLS HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://en.wikipedia.org/wiki/STARTTLS">https://en.wikipedia.org/wiki/STARTTLS</a><br><a target="_blank" href="https://tools.ietf.org/html/rfc2487">https://tools.ietf.org/html/rfc2487</a></td></tr>
+			</table>
+			<table class="informational">
+				<tr id="name"><td colspan=3 ><span id="traceroute_information">Traceroute Information</span>
+				<br><span id="point">Category : </span><span id="risk">Informational</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">0.0</span><span id="string"></span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">It was possible to obtain traceroute information.</td><td td="imp">Makes a traceroute to the remote host.</td><td td="sol">N/A</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  Possible reverse proxy detected.
+</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href=""></a></td></tr>
+			</table>
+			<table class="informational">
+				<tr id="name"><td colspan=3 ><span id="options_method_enabled">OPTIONS Method Enabled</span>
+				<br><span id="point">Category : </span><span id="risk">Informational</span></td></tr>
+				<tr id="cvss"><td colspan=3><span id="score">0.0</span><span id="string"></span></td></tr>
+				<tr><th>Description</th><th>Impact</th><th>Solution</th></tr>
+				<tr id="details_info">
+<td td="desc">OPTIONS method is allowed. This issue is reported as extra information.</td><td td="imp">Information disclosed from this page can be used to gain additional information about the target system.</td><td td="sol">Disable OPTIONS method in all production systems.</td></tr>
+				<tr id="poc"><td id="point">Output</td><td id="info" colspan=2>
+  Supported Methods: POST OPTIONS HEAD GET</td></tr>
+				<tr id="ref"><td id="point">References</td><td colspan=2 id="details"><a target="_blank" href="https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)">https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)</a><br><a target="_blank" href="http://www.nessus.org/u?d9c03a9a">http://www.nessus.org/u?d9c03a9a</a><br><a target="_blank" href="http://www.nessus.org/u?b019cbdb">http://www.nessus.org/u?b019cbdb</a></td></tr>
+			</table>
+		</div>
+</body></html>
